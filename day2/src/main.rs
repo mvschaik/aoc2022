@@ -7,15 +7,15 @@ fn parse_line(line: &str) -> (&str, &str) {
 
 fn calc_score_part1(choices: (&str, &str)) -> i32 {
     match choices {
-        ("A", "X") => 1 + 3, // rock - rock
-        ("A", "Y") => 2 + 6, // rock - paper
-        ("A", "Z") => 3 + 0, // rock - scissors
-        ("B", "X") => 1 + 0, // paper - rock
-        ("B", "Y") => 2 + 3, // paper - paper
-        ("B", "Z") => 3 + 6, // paper - scissors
-        ("C", "X") => 1 + 6, // scissors - rock
-        ("C", "Y") => 2 + 0, // scissors - paper
-        ("C", "Z") => 3 + 3, // scissors - scissors
+        ("A", "X") => 1 + 3, // rock - rock = draw
+        ("A", "Y") => 2 + 6, // rock - paper = win
+        ("A", "Z") => 3 + 0, // rock - scissors = lose
+        ("B", "X") => 1 + 0, // paper - rock = lose
+        ("B", "Y") => 2 + 3, // paper - paper = draw
+        ("B", "Z") => 3 + 6, // paper - scissors = win
+        ("C", "X") => 1 + 6, // scissors - rock = win
+        ("C", "Y") => 2 + 0, // scissors - paper = lose
+        ("C", "Z") => 3 + 3, // scissors - scissors = draw
         _ => panic!("Invalid input: {:?}", choices),
     }
 }
