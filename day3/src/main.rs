@@ -23,7 +23,7 @@ fn main() {
         let line = line.unwrap();
 
         if i % 3 == 0 {
-            // New elf
+            // New group
             common = bag(&line);
         } else {
             common = common.intersection(&bag(&line)).map(|x| *x).collect();
