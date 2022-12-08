@@ -5,8 +5,10 @@ fn parse_line(s: &str) -> Option<(RangeInclusive<i32>, RangeInclusive<i32>)> {
     let mut elves = s.split(",");
     let mut elf1 = elves.next()?.split("-");
     let mut elf2 = elves.next()?.split("-");
-    Some(((elf1.next()?.parse::<i32>().unwrap()..=elf1.next()?.parse::<i32>().unwrap()),
-     (elf2.next()?.parse::<i32>().unwrap()..=elf2.next()?.parse::<i32>().unwrap())))
+    Some((
+        (elf1.next()?.parse::<i32>().unwrap()..=elf1.next()?.parse::<i32>().unwrap()),
+        (elf2.next()?.parse::<i32>().unwrap()..=elf2.next()?.parse::<i32>().unwrap()),
+    ))
 }
 
 fn main() {
@@ -18,9 +20,10 @@ fn main() {
 
         let (e1, e2) = parse_line(&line).unwrap();
 
-        if (e1.contains(e2.start()) && e1.contains(e2.end())) ||
-            (e2.contains(e1.start()) && e2.contains(e1.end())) {
-            step1+=1;
+        if (e1.contains(e2.start()) && e1.contains(e2.end()))
+            || (e2.contains(e1.start()) && e2.contains(e1.end()))
+        {
+            step1 += 1;
         }
 
         if e1.contains(e2.start()) || e1.contains(e2.end()) || e2.contains(e1.start()) {
