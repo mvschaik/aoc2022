@@ -10,12 +10,8 @@ struct Pos {
 fn follow(head: &Pos, tail: &Pos) -> Pos {
     let mut new_tail = tail.clone();
     if (head.x - tail.x).abs() > 1 || (head.y - tail.y).abs() > 1 {
-        if head.x != tail.x {
-            new_tail.x += (head.x - tail.x).signum();
-        }
-        if head.y != tail.y {
-            new_tail.y += (head.y - tail.y).signum();
-        }
+        new_tail.x += (head.x - tail.x).signum();
+        new_tail.y += (head.y - tail.y).signum();
     }
     new_tail
 }
