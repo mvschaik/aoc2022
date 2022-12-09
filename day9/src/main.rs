@@ -20,6 +20,16 @@ fn follow(head: &Pos, tail: &Pos) -> Pos {
     new_tail
 }
 
+fn mv(knot: &Pos, dir: &str) -> Pos {
+    match dir {
+        "R" => Pos { x: knot.x + 1, y: knot.y },
+        "L" => Pos { x: knot.x - 1, y: knot.y },
+        "U" => Pos { x: knot.x, y: knot.y + 1 },
+        "D" => Pos { x: knot.x, y: knot.y - 1 },
+        _ => panic!("Invalid direction"),
+    }
+}
+
 fn main() {
     let mut knots = vec![Pos { x: 0, y: 0 }; 10];
     let mut visited1 = HashSet::new();
@@ -34,13 +44,7 @@ fn main() {
         let distance = parts[1].parse().unwrap();
 
         for _ in 0..distance {
-            knots[0] = match direction {
-                "R" => Pos { x: knots[0].x + 1, y: knots[0].y },
-                "L" => Pos { x: knots[0].x - 1, y: knots[0].y },
-                "U" => Pos { x: knots[0].x, y: knots[0].y + 1 },
-                "D" => Pos { x: knots[0].x, y: knots[0].y - 1 },
-                _ => panic!("Invalid direction"),
-            };
+            knots[0] = mv(&knots[0], direction);
             for i in 1..knots.len() {
                 knots[i] = follow(&knots[i - 1], &knots[i]);
             }
