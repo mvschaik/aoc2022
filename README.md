@@ -8,3 +8,9 @@ Run examples:
 cargo run -p day1 < day1/input.txt
 cargo run -p day2 < day2/test.txt
 ```
+
+Or:
+```sh
+./test.sh day7
+./run.sh day7
+```
