@@ -53,7 +53,7 @@ fn main() {
         }
     }
     println!("Step 1: visited={}", visited1.len());
-    println!("Step 1: visited={}", visited2.len());
+    println!("Step 2: visited={}", visited2.len());
 }
 
 #[cfg(test)]
