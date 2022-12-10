@@ -51,16 +51,8 @@ fn main() {
         }
     }
 
-    let result1: String = state9000
-        .iter()
-        .map(|stack| stack.last())
-        .filter_map(|c| c)
-        .collect();
-    let result2: String = state9001
-        .iter()
-        .map(|stack| stack.last())
-        .filter_map(|c| c)
-        .collect();
+    let result1: String = state9000.iter().map(|stack| stack.last()).filter_map(|c| c).collect();
+    let result2: String = state9001.iter().map(|stack| stack.last()).filter_map(|c| c).collect();
     println!("Step 1: result={}", result1);
     println!("Step 2: result={}", result2);
 }

@@ -4,12 +4,7 @@ fn main() {
     let mut field: Vec<Vec<i32>> = vec![];
 
     for line in io::stdin().lock().lines() {
-        field.push(
-            line.unwrap()
-                .chars()
-                .map(|c| c.to_digit(10).unwrap() as i32)
-                .collect(),
-        );
+        field.push(line.unwrap().chars().map(|c| c.to_digit(10).unwrap() as i32).collect());
     }
 
     let nrows = field.len();
@@ -82,15 +77,8 @@ fn main() {
         }
     }
 
-    let nvisible: usize = visible
-        .iter()
-        .map(|row| row.iter().filter(|v| **v).count())
-        .sum();
-    let maxscore = *scenic
-        .iter()
-        .map(|row| row.into_iter().max().unwrap())
-        .max()
-        .unwrap();
+    let nvisible: usize = visible.iter().map(|row| row.iter().filter(|v| **v).count()).sum();
+    let maxscore = *scenic.iter().map(|row| row.into_iter().max().unwrap()).max().unwrap();
     println!("Step1: {} visible", nvisible);
     println!("Step2: score: {}", maxscore);
 }

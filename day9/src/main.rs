@@ -9,10 +9,7 @@ struct Pos {
 
 fn follow(head: &Pos, tail: Pos) -> Pos {
     if (head.x - tail.x).abs() > 1 || (head.y - tail.y).abs() > 1 {
-        Pos {
-            x: tail.x + (head.x - tail.x).signum(),
-            y: tail.y + (head.y - tail.y).signum(),
-        }
+        Pos { x: tail.x + (head.x - tail.x).signum(), y: tail.y + (head.y - tail.y).signum() }
     } else {
         tail
     }
@@ -20,22 +17,10 @@ fn follow(head: &Pos, tail: Pos) -> Pos {
 
 fn mv(knot: &Pos, dir: &str) -> Pos {
     match dir {
-        "R" => Pos {
-            x: knot.x + 1,
-            y: knot.y,
-        },
-        "L" => Pos {
-            x: knot.x - 1,
-            y: knot.y,
-        },
-        "U" => Pos {
-            x: knot.x,
-            y: knot.y + 1,
-        },
-        "D" => Pos {
-            x: knot.x,
-            y: knot.y - 1,
-        },
+        "R" => Pos { x: knot.x + 1, y: knot.y },
+        "L" => Pos { x: knot.x - 1, y: knot.y },
+        "U" => Pos { x: knot.x, y: knot.y + 1 },
+        "D" => Pos { x: knot.x, y: knot.y - 1 },
         _ => panic!("Invalid direction"),
     }
 }
@@ -72,85 +57,34 @@ mod tests {
 
     #[test]
     fn test_follow_same_pos() {
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 2, y: 2 }),
-            Pos { x: 2, y: 2 }
-        );
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 2, y: 2 }), Pos { x: 2, y: 2 });
     }
 
     #[test]
     fn test_follow_touching() {
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 3, y: 2 }),
-            Pos { x: 3, y: 2 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 1, y: 2 }),
-            Pos { x: 1, y: 2 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 2, y: 3 }),
-            Pos { x: 2, y: 3 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 2, y: 1 }),
-            Pos { x: 2, y: 1 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 3, y: 3 }),
-            Pos { x: 3, y: 3 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 1, y: 1 }),
-            Pos { x: 1, y: 1 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 1, y: 3 }),
-            Pos { x: 1, y: 3 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 3, y: 1 }),
-            Pos { x: 3, y: 1 }
-        );
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 3, y: 2 }), Pos { x: 3, y: 2 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 1, y: 2 }), Pos { x: 1, y: 2 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 2, y: 3 }), Pos { x: 2, y: 3 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 2, y: 1 }), Pos { x: 2, y: 1 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 3, y: 3 }), Pos { x: 3, y: 3 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 1, y: 1 }), Pos { x: 1, y: 1 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 1, y: 3 }), Pos { x: 1, y: 3 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 3, y: 1 }), Pos { x: 3, y: 1 });
     }
 
     #[test]
     fn test_follow_straight() {
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 4, y: 2 }),
-            Pos { x: 3, y: 2 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 0, y: 2 }),
-            Pos { x: 1, y: 2 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 2, y: 4 }),
-            Pos { x: 2, y: 3 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 2, y: 0 }),
-            Pos { x: 2, y: 1 }
-        );
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 4, y: 2 }), Pos { x: 3, y: 2 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 0, y: 2 }), Pos { x: 1, y: 2 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 2, y: 4 }), Pos { x: 2, y: 3 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 2, y: 0 }), Pos { x: 2, y: 1 });
     }
 
     #[test]
     fn test_follow_diag() {
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 4, y: 3 }),
-            Pos { x: 3, y: 2 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 3, y: 4 }),
-            Pos { x: 2, y: 3 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 0, y: 1 }),
-            Pos { x: 1, y: 2 }
-        );
-        assert_eq!(
-            follow(&Pos { x: 2, y: 2 }, Pos { x: 1, y: 0 }),
-            Pos { x: 2, y: 1 }
-        );
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 4, y: 3 }), Pos { x: 3, y: 2 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 3, y: 4 }), Pos { x: 2, y: 3 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 0, y: 1 }), Pos { x: 1, y: 2 });
+        assert_eq!(follow(&Pos { x: 2, y: 2 }, Pos { x: 1, y: 0 }), Pos { x: 2, y: 1 });
     }
 }

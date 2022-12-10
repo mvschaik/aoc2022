@@ -2,12 +2,7 @@ use std::collections::HashSet;
 use std::io::{self, BufRead};
 
 fn marker_pos(s: &str, marker_len: usize) -> i32 {
-    for (i, seq) in s
-        .chars()
-        .collect::<Vec<char>>()
-        .windows(marker_len)
-        .enumerate()
-    {
+    for (i, seq) in s.chars().collect::<Vec<char>>().windows(marker_len).enumerate() {
         let set: HashSet<&char> = HashSet::from_iter(seq);
         if set.len() == marker_len {
             return (i + marker_len).try_into().unwrap();

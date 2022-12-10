@@ -13,11 +13,7 @@ fn main() {
     let mut current_line = String::new();
     let mut draw = |x| {
         let pos = current_line.len() as i32;
-        current_line += if x - 1 <= pos && pos <= x + 1 {
-            "#"
-        } else {
-            "."
-        };
+        current_line += if x - 1 <= pos && pos <= x + 1 { "#" } else { "." };
         if current_line.len() == 40 {
             println!("{}", current_line);
             current_line = String::new();

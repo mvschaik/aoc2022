@@ -9,9 +9,7 @@ fn score(c: &char) -> u32 {
     }
 }
 
-fn bag(s: &str) -> HashSet<u32> {
-    s.chars().map(|c| score(&c)).collect()
-}
+fn bag(s: &str) -> HashSet<u32> { s.chars().map(|c| score(&c)).collect() }
 
 fn main() {
     let mut total1 = 0;
