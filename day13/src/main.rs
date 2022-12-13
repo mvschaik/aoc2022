@@ -56,9 +56,9 @@ fn parse_el(mut s: &str) -> (El, &str) {
         }
         _ => {
             let mut n = 0;
-            while s.chars().nth(0).unwrap().is_digit(10) {
+            while let Some(c) = s.chars().nth(0).unwrap().to_digit(10) {
                 n *= 10;
-                n += s.chars().nth(0).unwrap().to_digit(10).unwrap();
+                n += c;
                 s = &s[1..];
             }
             (Num(n), s)
