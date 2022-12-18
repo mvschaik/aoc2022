@@ -92,11 +92,14 @@ fn main() {
     let fall = Pos { x: 0, y: -1 };
 
     let line = stdin().lock().lines().next().unwrap().unwrap();
-    let mut jetstream = line.chars().cycle().map(|c| match c {
-        '<' => Pos { x: -1, y: 0 },
-        '>' => Pos { x: 1, y: 0 },
-        _ => panic!("Invalid jet"),
-    });
+    let mut jetstream = line
+        .chars()
+        .map(|c| match c {
+            '<' => Pos { x: -1, y: 0 },
+            '>' => Pos { x: 1, y: 0 },
+            _ => panic!("Invalid jet"),
+        })
+        .cycle();
 
     let mut world = HashSet::new();
     let mut height = 0;
