@@ -10,7 +10,6 @@ fn mix(msg: &mut Msg) {
     }
 }
 
-
 fn score(msg: &Msg) -> Value {
     let zero = msg.iter().position(|(_, x)| *x == 0).unwrap();
     let n1k = msg[(zero + 1000) % msg.len()].1;
@@ -43,7 +42,6 @@ fn mv<T>(msg: &mut Vec<T>, from_index: usize, offset: Value) {
     let to_index = (from_index as Value + offset).rem_euclid(msg.len() as Value);
     msg.insert(to_index as usize, x);
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -99,4 +97,3 @@ mod tests {
         assert_eq!(msg, vec![4, 2, 0, 1, 3]);
     }
 }
-

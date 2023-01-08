@@ -1,6 +1,6 @@
+use regex::Regex;
 use std::collections::VecDeque;
 use std::io::stdin;
-use regex::Regex;
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 struct Resources {
@@ -45,13 +45,11 @@ struct Costs {
     geode_cost_obs: i32,
 }
 
-fn div_ceil(a: i32, b: i32) -> i32 {
-    (a + b - 1) / b
-}
+fn div_ceil(a: i32, b: i32) -> i32 { (a + b - 1) / b }
 
 fn run(time: i32, costs: &Costs) -> i32 {
     let mut max_possible_geodes = Vec::new();
-    for i in 0..(time+1) {
+    for i in 0..(time + 1) {
         max_possible_geodes.push(i + max_possible_geodes.last().unwrap_or(&0));
     }
 
@@ -59,8 +57,12 @@ fn run(time: i32, costs: &Costs) -> i32 {
     let mut todo = VecDeque::new();
     todo.push_back(Resources::new(time));
     while let Some(r) = todo.pop_back() {
-        if r.time < 0 { continue; }
-        if r.geode + r.geode_robots * r.time + max_possible_geodes[r.time as usize] < max_score { continue; }
+        if r.time < 0 {
+            continue;
+        }
+        if r.geode + r.geode_robots * r.time + max_possible_geodes[r.time as usize] < max_score {
+            continue;
+        }
 
         // Buy ore bot
         let wait_time = div_ceil(costs.ore_cost_ore - r.ore, r.ore_robots).max(0) + 1;
@@ -94,8 +96,10 @@ fn run(time: i32, costs: &Costs) -> i32 {
 
         // Buy obs bot
         if r.clay_robots > 0 {
-            let wait_time = div_ceil(costs.obs_cost_ore - r.ore, r.ore_robots).max(
-                div_ceil(costs.obs_cost_clay - r.clay, r.clay_robots)).max(0) + 1;
+            let wait_time = div_ceil(costs.obs_cost_ore - r.ore, r.ore_robots)
+                .max(div_ceil(costs.obs_cost_clay - r.clay, r.clay_robots))
+                .max(0)
+                + 1;
             if wait_time < r.time {
                 todo.push_back(Resources {
                     ore: r.ore + r.ore_robots * wait_time - costs.obs_cost_ore,
@@ -112,8 +116,10 @@ fn run(time: i32, costs: &Costs) -> i32 {
 
         // Buy geode bot
         if r.obs_robots > 0 {
-            let wait_time = div_ceil(costs.geode_cost_ore - r.ore, r.ore_robots).max(
-                div_ceil(costs.geode_cost_obs - r.obs, r.obs_robots)).max(0) + 1;
+            let wait_time = div_ceil(costs.geode_cost_ore - r.ore, r.ore_robots)
+                .max(div_ceil(costs.geode_cost_obs - r.obs, r.obs_robots))
+                .max(0)
+                + 1;
             if wait_time < r.time {
                 todo.push_back(Resources {
                     ore: r.ore + r.ore_robots * wait_time - costs.geode_cost_ore,

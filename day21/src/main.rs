@@ -1,7 +1,7 @@
+use regex::Regex;
 use std::collections::HashMap;
 use std::fmt::Debug;
 use std::io::stdin;
-use regex::Regex;
 
 type Monkeys = HashMap<String, Expr>;
 
@@ -51,49 +51,63 @@ fn solve(expr: &str, monkeys: &Monkeys) -> i64 {
 
     loop {
         match &monkeys[e] {
-            Eq(a, b) => if let Val(x) = &monkeys[a] {
-                val = *x;
-                e = b;
-            } else if let Val(x) = &monkeys[b] {
-                val = *x;
-                e = a;
-            },
-            Add(a, b) => if let Val(x) = &monkeys[a] {
-                val -= x;
-                e = b;
-            } else if let Val(x) = &monkeys[b] {
-                val -= x;
-                e = a;
-            },
-            Div(a, b) => if let Val(x) = &monkeys[a] {
-                val = x / val;
-                e = b;
-            } else if let Val(x) = &monkeys[b] {
-                val *= x;
-                e = a;
-            },
-            Mul(a, b) => if let Val(x) = &monkeys[a] {
-                val /= x;
-                e = b;
-            } else if let Val(x) = &monkeys[b] {
-                val /= x;
-                e = a;
-            },
-            Sub(a, b) => if let Val(x) = &monkeys[a] {
-                val = x - val;
-                e = b;
-            } else if let Val(x) = monkeys[b] {
-                val += x;
-                e = a;
-            },
-            X => { return val; },
-            Val(_) => panic!("Now what?")
+            Eq(a, b) => {
+                if let Val(x) = &monkeys[a] {
+                    val = *x;
+                    e = b;
+                } else if let Val(x) = &monkeys[b] {
+                    val = *x;
+                    e = a;
+                }
+            }
+            Add(a, b) => {
+                if let Val(x) = &monkeys[a] {
+                    val -= x;
+                    e = b;
+                } else if let Val(x) = &monkeys[b] {
+                    val -= x;
+                    e = a;
+                }
+            }
+            Div(a, b) => {
+                if let Val(x) = &monkeys[a] {
+                    val = x / val;
+                    e = b;
+                } else if let Val(x) = &monkeys[b] {
+                    val *= x;
+                    e = a;
+                }
+            }
+            Mul(a, b) => {
+                if let Val(x) = &monkeys[a] {
+                    val /= x;
+                    e = b;
+                } else if let Val(x) = &monkeys[b] {
+                    val /= x;
+                    e = a;
+                }
+            }
+            Sub(a, b) => {
+                if let Val(x) = &monkeys[a] {
+                    val = x - val;
+                    e = b;
+                } else if let Val(x) = monkeys[b] {
+                    val += x;
+                    e = a;
+                }
+            }
+            X => {
+                return val;
+            }
+            Val(_) => panic!("Now what?"),
         }
     }
 }
 
 fn main() {
-    let line_re = Regex::new(r"(?P<name>.{4}): ((?P<val>\d+)|(?P<a>.{4}) (?P<op>[-+*/]) (?P<b>.{4}))").unwrap();
+    let line_re =
+        Regex::new(r"(?P<name>.{4}): ((?P<val>\d+)|(?P<a>.{4}) (?P<op>[-+*/]) (?P<b>.{4}))")
+            .unwrap();
 
     let mut deps = HashMap::new();
 
