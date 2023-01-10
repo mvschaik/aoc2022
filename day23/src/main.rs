@@ -68,7 +68,7 @@ fn main() {
         let mut new_world = HashMap::new();
         let mut anything_moved = false;
         for x in &world {
-            if surroundings.iter().copied().all(|d| !world.contains(&(*x + *d))) {
+            if surroundings.iter().all(|&d| !world.contains(&(*x + *d))) {
                 new_world.insert(*x, *x);
                 continue;
             }
