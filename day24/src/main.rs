@@ -76,11 +76,11 @@ fn print_world(world: &World, pos: &Pos) {
     }
 }
 
-fn storm(world: World) -> World {
+fn storm(world: &World) -> World {
     let mut new_world: World = Vec::new();
     let height = world.len();
     let width = world[0].len();
-    for row in &world {
+    for row in world {
         new_world.push(
             row.iter().map(|l| if *l == Wall { Wall } else { Blizzards(HashSet::new()) }).collect(),
         );
@@ -175,7 +175,7 @@ fn main() {
         }
 
         while worlds.len() < s.time + 2 {
-            worlds.push(storm(worlds.last().unwrap().clone()));
+            worlds.push(storm(worlds.last().unwrap()));
         }
         let world = &worlds[s.time + 1];
 
